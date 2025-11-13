@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🍽️ CHEF-TI 🍽️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+  <style>
+    :root {
+      --primary: #ff7b42;
+      --primary-dark: #ff5b1e;
+      --accent: #0d8ce0;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #222;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      padding: 20px 10px 40px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    header h1 {
+      margin: 5px 0;
+      font-size: 1.9rem;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      padding: 18px 16px 24px;
+    }
+
+    @media (min-width: 700px) {
+      .card {
+        padding: 24px 26px 30px;
+      }
+    }
+
+    label {
+      display: block;
+      margin-top: 14px;
+      margin-bottom: 3px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .field-caption {
+      font-size: 0.8rem;
+      color: #777;
+      margin-top: 2px;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #d0d4e0;
+      padding: 9px 11px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border 0.15s, box-shadow 0.15s;
+      background: #fafbff;
+    }
+
+    textarea {
+      min-height: 60px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(13,140,224,0.2);
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 11px 16px;
+      margin-top: 12px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: white;
+      background: var(--primary);
+      transition: background 0.15s, transform 0.05s, box-shadow 0.15s;
+      box-shadow: 0 4px 12px rgba(255,123,66,0.4);
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 8px rgba(255,123,66,0.35);
+    }
+
+    .btn-secondary {
+      background: #ff9a6c;
+      box-shadow: none;
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      box-shadow: none;
+    }
+
+    .btn-outline:hover {
+      background: #e6f3ff;
+    }
+
+    #voiceBtn {
+      background: var(--accent);
+      box-shadow: 0 4px 12px rgba(13,140,224,0.4);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    @media (min-width: 700px) {
+      .btn-row {
+        flex-direction: row;
+      }
+      .btn-row .btn {
+        width: 100%;
+      }
+    }
+
+    #output {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid #eceff5;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    #output h1, #output h2, #output h3 {
+      margin-top: 14px;
+      margin-bottom: 8px;
+    }
+
+    #output p {
+      margin: 4px 0;
+    }
+
+    #output table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 8px 0 12px;
+      font-size: 0.9rem;
+    }
+
+    #output table th,
+    #output table td {
+      border: 1px solid #dde1ec;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    #output ul {
+      margin: 6px 0 8px 18px;
+    }
+
+    #output ol {
+      margin: 6px 0 8px 20px;
+    }
+
+    #videoWrapper {
+      margin-top: 16px;
+    }
+
+    iframe {
+      width: 100%;
+      max-width: 100%;
+      height: 230px;
+      border-radius: 14px;
+      border: none;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+    }
+
+    @media (min-width: 700px) {
+      iframe {
+        height: 320px;
+      }
+    }
+
+    .status {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .status.error {
+      color: #d93025;
+    }
+
+    .status.success {
+      color: #0a8043;
+    }
+
+    .saved-recipes {
+      margin-top: 22px;
+      padding-top: 14px;
+      border-top: 1px dashed #d0d4e0;
+    }
+
+    .saved-recipes h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .saved-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    .saved-item {
+      background: #f7f8ff;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .saved-item-title {
+      flex: 1;
+      font-weight: 500;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .small-btn {
+      font-size: 0.78rem;
+      padding: 5px 9px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: #ffffff;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+
+    .small-btn:hover {
+      background: #e6f3ff;
+    }
+
+    .style-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .style-row > * {
+      flex: 1;
+      min-width: 130px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>🍽️ CHEF-TI 🍽️</h1>
+      <p>Your strict but friendly AI chef – no surprise ingredients, ever.</p>
+    </header>
+
+    <div class="card">
+      <button id="voiceBtn" class="btn">
+        🎙️ Speak Ingredients
+      </button>
+
+      <label for="ingredients">🧺 Your ingredients</label>
+      <input
+        type="text"
+        id="ingredients"
+        placeholder="e.g., chicken tomato pasta toast banana broccoli"
+      />
+      <div class="field-caption">
+        Tip: you can separate ingredients with spaces or commas.
+      </div>
+
+      <label>🌍 What food mood are you in?</label>
+      <div class="style-row">
+        <select id="styleSelect">
+          <option value="any">Any style</option>
+          <option value="asian">Asian</option>
+          <option value="mediterranean">Mediterranean</option>
+          <option value="italian">Italian</option>
+          <option value="mexican">Mexican</option>
+          <option value="indian">Indian</option>
+          <option value="japanese">Japanese</option>
+          <option value="middle eastern">Middle Eastern</option>
+          <option value="american">American</option>
+          <option value="custom">Custom style (type below)</option>
+        </select>
+        <input
+          type="text"
+          id="styleCustom"
+          placeholder="Custom style (optional)"
+        />
+      </div>
+
+      <label for="mealType">🍽️ Meal type</label>
+      <select id="mealType">
+        <option value="breakfast">Breakfast</option>
+        <option value="lunch">Lunch</option>
+        <option value="dinner">Dinner</option>
+        <option value="snack" selected>Snack</option>
+      </select>
+
+      <label for="prepType">⏱️ How will you eat it?</label>
+      <select id="prepType">
+        <option value="fresh">Fresh meal (eat now)</option>
+        <option value="eat tomorrow">Eat tomorrow</option>
+        <option value="meal prep">Meal prep (for several days)</option>
+      </select>
+
+      <div class="btn-row">
+        <button id="generateBtn" class="btn">
+          🍳 Generate Recipe
+        </button>
+        <button id="generateNewBtn" class="btn btn-secondary">
+          🔁 Generate New Recipe
+        </button>
+      </div>
+
+      <button id="saveBtn" class="btn btn-outline">
+        💾 Save Current Recipe
+      </button>
+
+      <div id="status" class="status"></div>
+
+      <div id="output"></div>
+
+      <div id="videoWrapper" style="display:none;">
+        <h3 style="margin-top:12px;">🎥 Matching YouTube Tutorial</h3>
+        <iframe id="videoFrame" allowfullscreen></iframe>
+      </div>
+
+      <div class="saved-recipes">
+        <h3>📚 Saved Recipes</h3>
+        <div class="saved-list" id="savedList"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
